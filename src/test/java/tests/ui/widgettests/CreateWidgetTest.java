@@ -1,9 +1,12 @@
 package tests.ui.widgettests;
 
 import framework.browser.Browser;
+import framework.utils.DataGenerator;
 import framework.utils.SmartLogger;
 import io.qameta.allure.Allure;
 import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import steps.dashbords.DashboardsPageSteps;
 import steps.dashbords.dashboard.DashboardPageSteps;
@@ -13,13 +16,21 @@ import steps.dashbords.dashboard.widgetform.WidgetType;
 import steps.launches.LaunchesPageSteps;
 import tests.ui.BaseTest;
 
-public class WidgetTest extends BaseTest {
-    private final String DASHBOARD_NAME = "First dashboard";
+public class CreateWidgetTest extends BaseTest {
 
-    @Epic("Add Widget")
-    @Test
-    public void addWidget() {
-        String WIDGET_FILTER = "DEMO_FILTER";
+    @DataProvider
+    public Object[][] getDataWidget() {
+        return new Object[][]
+                {
+                        {DataGenerator.getString(3, 128), WidgetType.OVERALL_STATISTICS.getType(), "DEMO_FILTER"},
+                        {DataGenerator.getString(3, 128), WidgetType.LAUNCHES_DURATION_CHART.getType(), "DEMO_FILTER"}
+                };
+    }
+
+    @Epic("Widget")
+    @Feature("Create Widget")
+    @Test(dataProvider="getDataWidget", testName = "Create widget")
+    public void addWidget(String widgetName, String widgetType, String widgetFilter) {
         authorizationUser(LOGIN, PASSWORD);
 
         Allure.step("Open Dashboard", () -> {
@@ -28,10 +39,10 @@ public class WidgetTest extends BaseTest {
             DashboardsPageSteps.assertIsOpen();
 
             SmartLogger.logStep(++step, "Open first dashboard page");
-            DashboardsPageSteps.openFirstDashboardPage();
+            String dashboardName = DashboardsPageSteps.openFirstDashboardPage();
             DashboardPageSteps.assertIsOpen();
-            DashboardPageSteps.setDashboardPageName(DASHBOARD_NAME);
-            Allure.addByteAttachmentAsync(DASHBOARD_NAME.concat(" page"), "image/png", ".png",
+            DashboardPageSteps.setDashboardPageName(dashboardName);
+            Allure.addByteAttachmentAsync(dashboardName.concat(" page"), "image/png", ".png",
                     Browser.getScreenshotBytes());
         });
 
@@ -41,7 +52,7 @@ public class WidgetTest extends BaseTest {
             WidgetFormSteps.assertIsOpen();
 
             SmartLogger.logStep(++step, "Set configuration for new widget");
-            String widgetName = WidgetFormSteps.addNewWidget(WidgetType.OVERALL_STATISTICS.getType(), WIDGET_FILTER);
+            WidgetFormSteps.addNewWidget(widgetType, widgetFilter, widgetName);
 
             SmartLogger.logStep(++step, "Check new widget");
             DashboardPageSteps.assertIsExistWidget(widgetName);

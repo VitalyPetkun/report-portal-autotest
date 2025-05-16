@@ -1,6 +1,5 @@
 package steps.dashbords.dashboard.widgetform;
 
-import framework.utils.DataGenerator;
 import org.testng.Assert;
 import pages.dashboards.dashboard.widgetform.WidgetForm;
 
@@ -10,9 +9,7 @@ public class WidgetFormSteps {
     private WidgetFormSteps() {
     }
 
-    public static String addNewWidget(String widgetType, String widgetFilterName) {
-        String widgetName = DataGenerator.getTitle();
-
+    public static void addNewWidget(String widgetType, String widgetFilterName, String widgetName) {
         widgetForm
                 .clickWidgetTypeLbl(widgetType)
                 .clickNextStepBtn()
@@ -20,8 +17,6 @@ public class WidgetFormSteps {
                 .clickNextStepBtn()
                 .inputWidgetNameTxtBox(widgetName)
                 .clickAddBtn();
-
-        return widgetName;
     }
 
     public static void assertIsOpen() {

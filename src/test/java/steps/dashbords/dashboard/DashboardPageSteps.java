@@ -24,10 +24,14 @@ public class DashboardPageSteps {
     }
 
     public static void assertIsExistWidget(String widgetName) {
+        dashboardPage.scrollUp();
+        dashboardPage.scrollDown();
         Assert.assertTrue(dashboardPage.isExistWidget(widgetName), widgetName.concat(" widget didn't found"));
     }
 
     public static void assertIsNotExistWidget(String widgetName) {
+        dashboardPage.scrollUp();
+        dashboardPage.scrollDown();
         Assert.assertTrue(dashboardPage.isNotExistWidget(widgetName), widgetName.concat(" widget exist"));
     }
 

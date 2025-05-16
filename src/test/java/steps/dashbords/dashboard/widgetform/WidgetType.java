@@ -1,7 +1,7 @@
 package steps.dashbords.dashboard.widgetform;
 
 public enum WidgetType {
-    LAUNCH_STATISTICS_CHART("launchStatistics"),
+    LAUNCH_STATISTICS_CHART("statisticTrend"),
     OVERALL_STATISTICS("overallStatistics"),
     LAUNCHES_DURATION_CHART("launchesDurationChart"),
     LAUNCH_EXECUTION_AND_ISSUE_STATISTIC("launchStatistics"),

@@ -20,8 +20,12 @@ public class DashboardsPage extends SidebarForm {
         getFirstDashboardLnk().click();
     }
 
+    public String getFirstDashboardNameLnk() {
+        return getFirstDashboardLnk().getText();
+    }
+
     public boolean isExistDashboard() {
-        return getFirstDashboardLnk().isPresent();
+        return getFirstDashboardLnk().isVisible();
     }
 
     public void clickAddNewDashboardBtn() {

@@ -1,8 +1,9 @@
 package framework.forms;
 
+import framework.browser.Browser;
 import framework.elements.BaseElement;
 import framework.utils.SmartLogger;
-import framework.utils.WaiterUtils;
+import org.openqa.selenium.JavascriptExecutor;
 
 public abstract class BaseForm {
 
@@ -23,11 +24,21 @@ public abstract class BaseForm {
         this.formName = formName;
     }
 
+    public void scrollDown() {
+        ((JavascriptExecutor) Browser.getDriver())
+                .executeScript("window.scrollBy(0,document.body.scrollHeight)");
+    }
+
+    public void scrollUp() {
+        ((JavascriptExecutor) Browser.getDriver())
+                .executeScript("window.scrollBy(0,-document.body.scrollHeight)");
+    }
+
     public boolean isFormOpen() {
-        if (WaiterUtils.visibilityOfElementLocated(uniqElement.getLocator()).isDisplayed()) {
+        if (uniqElement.isVisible()) {
             SmartLogger.logInfo("Open ".concat(formName));
         }
 
-        return uniqElement.isPresent();
+        return uniqElement.isVisible();
     }
 }

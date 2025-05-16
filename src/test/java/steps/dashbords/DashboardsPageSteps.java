@@ -11,12 +11,13 @@ public class DashboardsPageSteps {
     }
 
     public static String openFirstDashboardPage() {
-        String dashboardName = "";
+        String dashboardName;
 
         if (dashboardsPage.isExistDashboard()) {
+            dashboardName = dashboardsPage.getFirstDashboardNameLnk();
             dashboardsPage.clickFirstDashboardLnk();
         } else {
-            dashboardName = DataGenerator.getTitle();
+            dashboardName = DataGenerator.getString(3, 128);
             addNewDashboard(dashboardName);
         }
 
