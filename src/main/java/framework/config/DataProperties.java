@@ -9,7 +9,10 @@ public interface DataProperties extends Config {
     String baseUrl();
     String browser();
     Long timeout();
+    String version();
 
     String login();
     String password();
+    String apiKey();
+    String projectName();
 }
