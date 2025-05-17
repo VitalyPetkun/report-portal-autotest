@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>reportportal</groupId>
+    <artifactId>report-portal-autotest</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <properties>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <dependency.selenium-java.version>4.32.0</dependency.selenium-java.version>
+        <dependency.webdrivermanager.version>6.1.0</dependency.webdrivermanager.version>
+        <dependency.rest-assured.version>5.5.0</dependency.rest-assured.version>
+        <dependency.testng.version>7.10.2</dependency.testng.version>
+        <dependency.json-schema-validator.version>5.5.0</dependency.json-schema-validator.version>
+        <dependency.lombok.version>1.18.34</dependency.lombok.version>
+        <dependency.gson.version>2.10</dependency.gson.version>
+        <dependency.log4j-api.version>2.24.0</dependency.log4j-api.version>
+        <dependency.log4j-core.version>2.24.0</dependency.log4j-core.version>
+        <dependency.owner.version>1.0.12</dependency.owner.version>
+        <dependency.datafaker.version>1.6.0</dependency.datafaker.version>
+        <dependency.allure-testng.version>2.29.0</dependency.allure-testng.version>
+        <plugin.allure-maven.version>2.14.0</plugin.allure-maven.version>
+        <configuration.allure.version>2.32.0</configuration.allure.version>
+        <dependency.allure-rest-assured.version>2.29.0</dependency.allure-rest-assured.version>
+        <dependency.allure-java-commons.version>2.29.1</dependency.allure-java-commons.version>
+        <plugin.maven-surefire-plugin.version>3.5.1</plugin.maven-surefire-plugin.version>
+        <dependency.aspectj.version>1.9.22.1</dependency.aspectj.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>${dependency.selenium-java.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.github.bonigarcia</groupId>
+            <artifactId>webdrivermanager</artifactId>
+            <version>${dependency.webdrivermanager.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>rest-assured</artifactId>
+            <version>${dependency.rest-assured.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>${dependency.testng.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>json-schema-validator</artifactId>
+            <version>${dependency.json-schema-validator.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${dependency.lombok.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>${dependency.gson.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-api</artifactId>
+            <version>${dependency.log4j-api.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>${dependency.log4j-core.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.aeonbits.owner</groupId>
+            <artifactId>owner</artifactId>
+            <version>${dependency.owner.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>net.datafaker</groupId>
+            <artifactId>datafaker</artifactId>
+            <version>${dependency.datafaker.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.qameta.allure</groupId>
+            <artifactId>allure-testng</artifactId>
+            <version>${dependency.allure-testng.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>io.qameta.allure</groupId>
+            <artifactId>allure-rest-assured</artifactId>
+            <version>${dependency.allure-rest-assured.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.qameta.allure</groupId>
+            <artifactId>allure-java-commons</artifactId>
+            <version>${dependency.allure-java-commons.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${plugin.maven-surefire-plugin.version}</version>
+                <configuration>
+                    <argLine>
+                        -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${dependency.aspectj.version}/aspectjweaver-${dependency.aspectj.version}.jar"
+                    </argLine>
+                    <suiteXmlFiles>
+                        <file>src/test/resources/testng.xml</file>
+                    </suiteXmlFiles>
+                    <properties>
+                        <property>
+                            <name>listener</name>
+                            <value>io.qameta.allure.testng.AllureTestNg</value>
+                        </property>
+                    </properties>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.aspectj</groupId>
+                        <artifactId>aspectjweaver</artifactId>
+                        <version>${dependency.aspectj.version}</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+            <plugin>
+                <groupId>io.qameta.allure</groupId>
+                <artifactId>allure-maven</artifactId>
+                <version>${plugin.allure-maven.version}</version>
+                <configuration>
+                    <reportVersion>${configuration.allure.version}</reportVersion>
+                    <allureDownloadUrl>
+                        https://repo.maven.apache.org/maven2/io/qameta/allure/allure-commandline/${configuration.allure.version}/allure-commandline-${configuration.allure.version}.zip
+                    </allureDownloadUrl>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
