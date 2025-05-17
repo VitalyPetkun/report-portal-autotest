@@ -17,6 +17,7 @@ import services.DashboardsApi;
 import tests.api.BaseTest;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class DashboardApiSteps {
     public static Response response;
@@ -60,7 +61,8 @@ public class DashboardApiSteps {
 
         Dashboards dashboards = response.getBody(Dashboards.class);
         List<Dashboard> actualDashboards = dashboards.getContent().stream()
-                .filter(dashboard -> dashboard.getId() == expectedDashboard.getId()).toList();
+                .filter(dashboard -> dashboard.getId() == expectedDashboard.getId())
+                .collect(Collectors.toList());
 
         Assert.assertEquals(actualDashboards.size(), 1,
                 "Founded someone dashboards with same id = ".concat(String.valueOf(actualDashboards.get(0).getId())));
@@ -96,7 +98,8 @@ public class DashboardApiSteps {
                 JsonConverter.getJsonString(dashboards.getContent()));
 
         List<Dashboard> actualDashboards = dashboards.getContent().stream()
-                .filter(dashboard -> dashboard.getName().equals(expectedDashboard.getName())).toList();
+                .filter(dashboard -> dashboard.getName().equals(expectedDashboard.getName()))
+                .collect(Collectors.toList());
 
         Assert.assertTrue(actualDashboards.isEmpty(),
                 "Found dashboard with name = ".concat(String.valueOf(expectedDashboard.getName())));

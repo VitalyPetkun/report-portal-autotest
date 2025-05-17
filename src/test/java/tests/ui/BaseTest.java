@@ -4,7 +4,6 @@ import framework.browser.Browser;
 import framework.config.Data;
 import framework.utils.SmartLogger;
 import io.qameta.allure.Allure;
-import io.qameta.allure.Step;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import steps.authorization.AuthorizationPageSteps;
@@ -37,7 +36,6 @@ public class BaseTest {
         Browser.quit();
     }
 
-    @Step
     public void authorizationUser(String login, String password) {
         Allure.step("Authorization user", () -> {
             SmartLogger.logStep(++step, "Authorization user by login and password");

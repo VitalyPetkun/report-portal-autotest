@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Dashboard tests">
+    <test name="API | Create dashboard">
+        <classes>
+            <class name="tests.api.dashboardtest.CreateDashboardTest">
+                <methods>
+                    <include name="createDashboard"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name="API | Create dashboard without require parameters">
+        <classes>
+            <class name="tests.api.dashboardtest.CreateDashboardTest">
+                <methods>
+                    <include name="createDashboardNegative"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name="UI | Create widgert">
+        <classes>
+            <class name="tests.ui.widgettests.CreateWidgetTest"/>
+        </classes>
+    </test>
+</suite>

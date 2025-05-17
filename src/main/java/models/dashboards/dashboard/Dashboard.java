@@ -1,14 +1,13 @@
 package models.dashboards.dashboard;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import models.dashboards.dashboard.widget.Widget;
 
 import java.util.List;
 import java.util.Objects;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Dashboard {
